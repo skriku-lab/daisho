@@ -19,7 +19,7 @@ button{
 
 }
 
-button.hober{
+button:hover{
     background: #005fa3;
 
 }
