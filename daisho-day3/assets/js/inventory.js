@@ -70,3 +70,23 @@ function render() {
 
 //----------------------------
 //3.在庫を変更する関数 changeStock()
+//----------------------------
+function changeStock(id, diff) {
+    //id が一致する商品を探す
+    const item = items.find(i => i.id === id);
+    if(!item) {
+        return;// 見つからなかったら何もしない
+    }
+
+    // diff 分だけ在庫数を増減させる
+    item.stock += diff;
+    // 在庫がマイナスにならないように０で止める
+    if(item.stock <0 )  {
+      item.stock = 0;
+    }
+
+    // 変更を画面に反映する
+    render();
+}
+// ページを開いたときに、１回だけ表示する
+render();
