@@ -21,3 +21,52 @@ const items = [
         minStock: 10
     }
 ];
+
+//--------------------
+//1.在庫データ（JSON的な構造）
+//--------------------
+const items = [
+    {id: "D001", name:"オレンジジュース",price: 150,stock: 20,minStock: 5},
+    {id: "D002", name:"コーラ",         price: 150,stock: 12,minStock: 5},
+    {id: "D001", name:"オレンジジュース",price: 120,stock: 30,minStock: 10},
+];
+
+//HTML で <tbody id="item-list"> と書いた部分を JavaScript から取得する
+const tbody = document.getElementByld("item-list");
+
+//-------------------
+//2.表示用の関数 render()
+//-------------------
+function render() {
+    // 一度、中身を空にしてから作り直す
+    tbody.innerHTML = "";
+
+    //items の中身を１件ずつ取り出して tr（行）を作る
+    items.forEach(item => {
+        const tr = document.createElement("tr");
+
+        // 在庫が少ないときはクラスを追加して背景色を変える
+        if(item.stock < item.minStock) {
+            tr.classList.add("low-stock");
+        }
+
+        // 行の中身（セル）をテンプレート文字列でまとめて書く
+        tr.innerHTML = `
+           <td>${item.id}<t/d>
+           <td>${item.name}<t/d>
+           <td>${item.price}<t/d>
+           <td>${item.stock}<t/d>
+           <td>
+             <button onclick="changeStock('${item.id}',1)">＋</button>
+             <button onclick="changeStock('${item.id}',-1)">ー</button>
+           </td>
+        `;     
+        
+        // 作った tr を tbody の中に追加する
+        tbody.appendChild(tr);
+    });
+    
+}
+
+//----------------------------
+//3.在庫を変更する関数 changeStock()
